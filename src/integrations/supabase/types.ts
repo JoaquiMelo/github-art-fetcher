@@ -14,7 +14,98 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      agentes_criativos: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          categoria: string
+          cidade: string
+          criado_em: string
+          disponivel: boolean
+          especialidade: string
+          id: string
+          latitude: number | null
+          longitude: number | null
+          nome: string
+          nota_media: number
+          total_avaliacoes: number
+          total_projetos: number
+          user_id: string | null
+          visivel_mapa: boolean
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          categoria: string
+          cidade?: string
+          criado_em?: string
+          disponivel?: boolean
+          especialidade?: string
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          nome: string
+          nota_media?: number
+          total_avaliacoes?: number
+          total_projetos?: number
+          user_id?: string | null
+          visivel_mapa?: boolean
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          categoria?: string
+          cidade?: string
+          criado_em?: string
+          disponivel?: boolean
+          especialidade?: string
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          nome?: string
+          nota_media?: number
+          total_avaliacoes?: number
+          total_projetos?: number
+          user_id?: string | null
+          visivel_mapa?: boolean
+        }
+        Relationships: []
+      }
+      portfolio_itens: {
+        Row: {
+          agente_id: string
+          criado_em: string
+          descricao: string | null
+          id: string
+          imagem_url: string
+          titulo: string | null
+        }
+        Insert: {
+          agente_id: string
+          criado_em?: string
+          descricao?: string | null
+          id?: string
+          imagem_url: string
+          titulo?: string | null
+        }
+        Update: {
+          agente_id?: string
+          criado_em?: string
+          descricao?: string | null
+          id?: string
+          imagem_url?: string
+          titulo?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portfolio_itens_agente_id_fkey"
+            columns: ["agente_id"]
+            isOneToOne: false
+            referencedRelation: "agentes_criativos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
