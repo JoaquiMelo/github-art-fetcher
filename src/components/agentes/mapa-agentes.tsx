@@ -64,14 +64,8 @@ export default function MapaAgentes({
       className="h-full w-full"
       attributionControl={false}
     >
-      <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png"
-        subdomains={["a", "b", "c", "d"]}
-      />
-      <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png"
-        subdomains={["a", "b", "c", "d"]}
-      />
+      <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
       <AjustarLimites agentes={comCoordenadas} />
       {comCoordenadas.map((agente) => (
         <Marker
