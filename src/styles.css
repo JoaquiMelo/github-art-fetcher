@@ -168,6 +168,11 @@
   background-color: var(--color-muted);
 }
 
+/* Tonalidade editorial nas imagens do mapa */
+.leaflet-tile-pane {
+  filter: saturate(0.6) contrast(0.92) brightness(1.05) sepia(0.12);
+}
+
 .leaflet-bar,
 .leaflet-bar a {
   border-color: var(--color-border) !important;
