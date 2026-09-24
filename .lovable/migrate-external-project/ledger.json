@@ -1,0 +1,13 @@
+{
+  "source": "github:JoaquiMelo/Arthere_",
+  "capabilities": [
+    {"capability": "app code (Expo React Native + NestJS)", "source": "repo", "outcome": "rebuild as responsive web app (TanStack Start)", "status": "in_progress", "next_action": "build screens and features"},
+    {"capability": "database schema (Usuario, AgenteCriativo, Contratante, Projeto, Candidatura, Portfolio, Avaliacao, Evento)", "source": "backend/prisma/schema.prisma", "outcome": "recreate in Lovable Cloud", "status": "in_progress", "next_action": "write migration"},
+    {"capability": "records", "source": "none attached", "outcome": "pending", "status": "pending", "next_action": "request CSV/JSON exports after preview"},
+    {"capability": "auth identities", "source": "NestJS JWT + bcrypt", "outcome": "replace with Lovable auth", "status": "in_progress", "next_action": "email verification + new password on first login"},
+    {"capability": "authorization (AGENTE/CONTRATANTE/ADMIN)", "source": "schema enums", "outcome": "user_roles table + RLS", "status": "in_progress", "next_action": "write migration"},
+    {"capability": "chat", "source": "src/providers/chat-provider.tsx (mock)", "outcome": "recreate with Cloud tables", "status": "in_progress", "next_action": "build chat screens"},
+    {"capability": "map of agents", "source": "map-screen + geocoding util", "outcome": "web map (Leaflet)", "status": "in_progress", "next_action": "build map page"},
+    {"capability": "events, opportunities, reviews, portfolio", "source": "features/*", "outcome": "recreate as web pages", "status": "in_progress", "next_action": "build pages"}
+  ]
+}
