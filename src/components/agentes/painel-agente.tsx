@@ -1,21 +1,39 @@
-import { MapPin, MessageCircle, Star, X } from "lucide-react";
+import { CalendarCheck, MapPin, MessageCircle, Star, X } from "lucide-react";
 
 import { categoriaInfo } from "@/lib/categorias";
 import type { Agente } from "@/lib/agentes.functions";
 import { cn } from "@/lib/utils";
 
-export function PainelAgente({ agente, onClose }: { agente: Agente; onClose: () => void }) {
+export function PainelAgente({
+  agente,
+  onClose,
+  onAgendar,
+  onConversar,
+}: {
+  agente: Agente;
+  onClose: () => void;
+  onAgendar?: (a: Agente) => void;
+  onConversar?: (a: Agente) => void;
+}) {
   const cat = categoriaInfo(agente.categoria);
 
   return (
     <aside className="pointer-events-auto w-full max-w-sm border border-border bg-card shadow-editorial">
       <div className="flex items-start gap-4 p-5">
         {agente.avatar_url ? (
-          <img
-            src={agente.avatar_url}
-            alt={agente.nome}
-            className="size-16 shrink-0 rounded-full object-cover"
-          />
+          <div className="relative shrink-0">
+            <img
+              src={agente.avatar_url}
+              alt={agente.nome}
+              className="size-16 rounded-full object-cover"
+            />
+            <span
+              className={cn(
+                "absolute -right-0.5 bottom-0.5 size-3.5 rounded-full border-2 border-card",
+                agente.disponivel ? "bg-primary" : "bg-muted-foreground",
+              )}
+            />
+          </div>
         ) : null}
         <div className="min-w-0 flex-1">
           <span className="inline-flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
@@ -35,7 +53,7 @@ export function PainelAgente({ agente, onClose }: { agente: Agente; onClose: () 
         </button>
       </div>
 
-      <div className="flex items-center gap-5 border-y border-border px-5 py-3 text-xs text-muted-foreground">
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-border px-5 py-3 text-xs text-muted-foreground">
         <span className="inline-flex items-center gap-1.5">
           <Star className="size-3.5 fill-secondary text-secondary" />
           <span className="font-medium text-foreground">{agente.nota_media.toFixed(1)}</span>(
@@ -47,6 +65,15 @@ export function PainelAgente({ agente, onClose }: { agente: Agente; onClose: () 
         <span className="inline-flex items-center gap-1.5">
           <MapPin className="size-3.5 text-terracotta" />
           {agente.cidade}
+        </span>
+        <span className="inline-flex items-center gap-1.5 font-medium uppercase tracking-[0.14em]">
+          <span
+            className={cn(
+              "size-1.5 rounded-full",
+              agente.disponivel ? "bg-primary" : "bg-muted-foreground",
+            )}
+          />
+          {agente.disponivel ? "Disponível" : "Em projeto"}
         </span>
       </div>
 
@@ -68,11 +95,23 @@ export function PainelAgente({ agente, onClose }: { agente: Agente; onClose: () 
         </div>
       ) : null}
 
-      <div className="flex gap-2 border-t border-border p-4">
+      <div className="flex flex-wrap gap-2 border-t border-border p-4">
         <button className="flex-1 bg-foreground px-4 py-2.5 text-xs font-medium uppercase tracking-[0.16em] text-background transition-opacity hover:opacity-90">
           Ver perfil
         </button>
-        <button className="inline-flex items-center justify-center gap-2 border border-border px-4 py-2.5 text-xs font-medium uppercase tracking-[0.16em] transition-colors hover:bg-muted">
+        <button
+          type="button"
+          onClick={() => onAgendar?.(agente)}
+          className="inline-flex items-center justify-center gap-2 border border-border px-3 py-2.5 text-xs font-medium uppercase tracking-[0.16em] transition-colors hover:bg-muted"
+        >
+          <CalendarCheck className="size-3.5" />
+          Agendar
+        </button>
+        <button
+          type="button"
+          onClick={() => onConversar?.(agente)}
+          className="inline-flex items-center justify-center gap-2 border border-border px-3 py-2.5 text-xs font-medium uppercase tracking-[0.16em] transition-colors hover:bg-muted"
+        >
           <MessageCircle className="size-3.5" />
           Conversar
         </button>
