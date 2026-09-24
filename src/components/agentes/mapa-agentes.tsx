@@ -1,7 +1,7 @@
 import "leaflet/dist/leaflet.css";
 
 import L from "leaflet";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
 
 import { categoriaInfo } from "@/lib/categorias";
@@ -14,13 +14,14 @@ function pinIcon(agente: Agente, ativo: boolean) {
   const avatar = agente.avatar_url ?? "";
   return L.divIcon({
     className: "arthere-pin",
-    iconSize: [48, 58],
-    iconAnchor: [24, 58],
+    iconSize: [52, 62],
+    iconAnchor: [26, 62],
     html: `
-      <div style="display:flex;flex-direction:column;align-items:center;transform:${ativo ? "scale(1.12)" : "scale(1)"};transition:transform .2s ease">
-        <div style="width:42px;height:42px;border-radius:9999px;border:2.5px solid ${cor};overflow:hidden;background:var(--card);box-shadow:0 6px 16px -6px oklch(0.267 0.014 320 / .55)">
+      <div style="display:flex;flex-direction:column;align-items:center;transform:${ativo ? "scale(1.18)" : "scale(1)"};transition:transform .25s cubic-bezier(.4,0,.2,1)">
+        <div style="position:relative;width:44px;height:44px;border-radius:9999px;border:2.5px solid ${cor};overflow:hidden;background:var(--card);box-shadow:0 6px 16px -6px oklch(0.267 0.014 320 / .55)">
           <img src="${avatar}" alt="" style="width:100%;height:100%;object-fit:cover" />
         </div>
+        <div style="position:absolute;top:0;right:0;width:11px;height:11px;border-radius:9999px;border:2px solid var(--card);background:${agente.disponivel ? cor : "var(--muted-foreground)"}"></div>
         <div style="width:0;height:0;margin-top:-2px;border-left:6px solid transparent;border-right:6px solid transparent;border-top:10px solid ${cor}"></div>
       </div>
     `,
@@ -39,6 +40,22 @@ function AjustarLimites({ agentes }: { agentes: Agente[] }) {
       map.setView(pontos[0], 13);
     }
   }, [agentes, map]);
+  return null;
+}
+
+function FocarSelecionado({ agente }: { agente: Agente | null }) {
+  const map = useMap();
+  const ultimoId = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!agente || agente.latitude == null || agente.longitude == null) return;
+    if (ultimoId.current === agente.id) return;
+    ultimoId.current = agente.id;
+    map.flyTo([agente.latitude, agente.longitude], Math.max(map.getZoom(), 13), {
+      duration: 0.8,
+    });
+  }, [agente, map]);
+
   return null;
 }
 
@@ -67,11 +84,13 @@ export default function MapaAgentes({
       <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
       <AjustarLimites agentes={comCoordenadas} />
+      <FocarSelecionado agente={selecionado} />
       {comCoordenadas.map((agente) => (
         <Marker
           key={agente.id}
           position={[agente.latitude as number, agente.longitude as number]}
           icon={pinIcon(agente, selecionado?.id === agente.id)}
+          zIndexOffset={selecionado?.id === agente.id ? 1000 : 0}
           eventHandlers={{ click: () => onSelect(agente) }}
         />
       ))}
