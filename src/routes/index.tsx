@@ -1,7 +1,8 @@
 import { createFileRoute, ClientOnly } from "@tanstack/react-router";
 import { useSuspenseQuery, queryOptions } from "@tanstack/react-query";
-import { lazy, useMemo, useState } from "react";
-import { Search } from "lucide-react";
+import { lazy, useCallback, useMemo, useRef, useState } from "react";
+import { Search, X } from "lucide-react";
+import { toast } from "sonner";
 
 import { SiteHeader } from "@/components/site-header";
 import { AgenteCard } from "@/components/agentes/agente-card";
@@ -53,6 +54,12 @@ function Home() {
   const [busca, setBusca] = useState("");
   const [categoria, setCategoria] = useState<string | null>(null);
   const [selecionado, setSelecionado] = useState<Agente | null>(null);
+  const mapaRef = useRef<HTMLDivElement | null>(null);
+
+  const selecionarNoMapa = useCallback((agente: Agente) => {
+    setSelecionado(agente);
+    mapaRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, []);
 
   const filtrados = useMemo(() => {
     const termo = busca.trim().toLowerCase();
@@ -115,9 +122,19 @@ function Home() {
             <input
               value={busca}
               onChange={(e) => setBusca(e.target.value)}
-              placeholder="Buscar artista ou cidade"
+              placeholder="Buscar artista, cidade ou especialidade"
               className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
             />
+            {busca ? (
+              <button
+                type="button"
+                onClick={() => setBusca("")}
+                aria-label="Limpar busca"
+                className="shrink-0 text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <X className="size-4" />
+              </button>
+            ) : null}
           </label>
 
           <div className="flex flex-wrap items-center gap-2">
@@ -140,7 +157,10 @@ function Home() {
 
       {/* Mapa */}
       <section className="mx-auto w-full max-w-6xl px-5 py-10">
-        <div className="relative h-[520px] w-full overflow-hidden border border-border bg-muted">
+        <div
+          ref={mapaRef}
+          className="relative h-[520px] w-full overflow-hidden border border-border bg-muted"
+        >
           <ClientOnly
             fallback={
               <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
@@ -155,13 +175,22 @@ function Home() {
             />
           </ClientOnly>
 
-          <div className="pointer-events-none absolute right-4 top-4 z-[400] bg-background/90 px-3 py-2 text-[11px] font-medium uppercase tracking-[0.18em]">
+          <div className="pointer-events-none absolute right-4 top-4 z-[400] inline-flex items-center gap-2 bg-foreground px-3 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-background">
+            <span className="relative flex size-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+              <span className="relative inline-flex size-1.5 rounded-full bg-primary" />
+            </span>
             {filtrados.length} {filtrados.length === 1 ? "artista" : "artistas"} no mapa
           </div>
 
           {selecionado ? (
             <div className="pointer-events-none absolute inset-x-4 bottom-4 z-[400] flex justify-end sm:inset-x-auto sm:right-4">
-              <PainelAgente agente={selecionado} onClose={() => setSelecionado(null)} />
+              <PainelAgente
+                agente={selecionado}
+                onClose={() => setSelecionado(null)}
+                onAgendar={(a) => toast.success(`Solicitação de agenda enviada para ${a.nome}.`)}
+                onConversar={(a) => toast.info(`A conversa com ${a.nome} estará disponível em breve.`)}
+              />
             </div>
           ) : null}
         </div>
@@ -187,7 +216,7 @@ function Home() {
                 key={agente.id}
                 agente={agente}
                 ativo={selecionado?.id === agente.id}
-                onSelect={setSelecionado}
+                onSelect={selecionarNoMapa}
               />
             ))}
           </div>
