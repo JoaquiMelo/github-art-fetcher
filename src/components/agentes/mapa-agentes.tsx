@@ -35,7 +35,7 @@ function AjustarLimites({ agentes }: { agentes: Agente[] }) {
       .map((a) => [a.latitude as number, a.longitude as number] as [number, number]);
     if (pontos.length > 1) {
       map.fitBounds(L.latLngBounds(pontos).pad(0.25));
-    } else if (pontos.length === 1) {
+    } else if (pontos[0]) {
       map.setView(pontos[0], 13);
     }
   }, [agentes, map]);
