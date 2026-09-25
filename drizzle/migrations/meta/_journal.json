@@ -8,6 +8,13 @@
       "when": 1790252440712,
       "tag": "0000_create_agentes_criativos",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790338091354,
+      "tag": "0001_create_eventos",
+      "breakpoints": true
     }
   ]
 }

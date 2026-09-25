@@ -71,6 +71,60 @@ export type Database = {
         }
         Relationships: []
       }
+      eventos: {
+        Row: {
+          categoria: string
+          cidade: string
+          criado_em: string
+          descricao: string
+          endereco: string | null
+          fim: string | null
+          gratuito: boolean
+          id: string
+          imagem_url: string | null
+          inicio: string
+          local_nome: string
+          organizador_id: string | null
+          preco_centavos: number | null
+          publicado: boolean
+          titulo: string
+        }
+        Insert: {
+          categoria?: string
+          cidade?: string
+          criado_em?: string
+          descricao?: string
+          endereco?: string | null
+          fim?: string | null
+          gratuito?: boolean
+          id?: string
+          imagem_url?: string | null
+          inicio: string
+          local_nome: string
+          organizador_id?: string | null
+          preco_centavos?: number | null
+          publicado?: boolean
+          titulo: string
+        }
+        Update: {
+          categoria?: string
+          cidade?: string
+          criado_em?: string
+          descricao?: string
+          endereco?: string | null
+          fim?: string | null
+          gratuito?: boolean
+          id?: string
+          imagem_url?: string | null
+          inicio?: string
+          local_nome?: string
+          organizador_id?: string | null
+          preco_centavos?: number | null
+          publicado?: boolean
+          titulo?: string
+        }
+        Relationships: []
+      }
       portfolio_itens: {
         Row: {
           agente_id: string
