@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 const NAV = [
   { label: "Mapa", to: "/" as const },
   { label: "Oportunidades", to: "/" as const },
-  { label: "Eventos", to: "/" as const },
+  { label: "Eventos", to: "/eventos" as const },
 ];
 
 export function SiteHeader() {
