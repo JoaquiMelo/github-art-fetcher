@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Use Plus Jakarta Sans for both display and body text, with bold headings and rounded pill-shaped controls, because Arthere's visual direction is modern, expressive, and approachable rather than editorial.

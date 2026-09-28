@@ -78,16 +78,16 @@ function Home() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
 
-      {/* Abertura editorial */}
+      {/* Abertura */}
       <section className="mx-auto w-full max-w-6xl px-5 pb-10 pt-16 md:pt-24">
-        <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
+        <p className="inline-flex rounded-full bg-secondary/55 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-foreground">
           Arte, encontro e território
         </p>
         <div className="mt-6 grid gap-10 md:grid-cols-[1.35fr_1fr] md:items-end">
-          <h1 className="text-5xl leading-[0.95] sm:text-6xl md:text-7xl">
+          <h1 className="text-5xl font-extrabold leading-[1.02] sm:text-6xl md:text-7xl">
             O mapa vivo dos
             <br />
-            <span className="italic text-primary">talentos criativos</span>
+            <span className="text-primary">talentos criativos</span>
             <br />
             da Baixada Santista.
           </h1>
@@ -98,13 +98,13 @@ function Home() {
             </p>
             <div className="flex items-baseline gap-8 border-t border-border pt-5">
               <div>
-                <span className="font-display text-4xl">{agentes.length}</span>
+                 <span className="font-display text-4xl font-extrabold">{agentes.length}</span>
                 <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                   artistas
                 </p>
               </div>
               <div>
-                <span className="font-display text-4xl">{LISTA_CATEGORIAS.length}</span>
+                 <span className="font-display text-4xl font-extrabold">{LISTA_CATEGORIAS.length}</span>
                 <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                   áreas criativas
                 </p>
@@ -116,8 +116,8 @@ function Home() {
 
       {/* Busca e filtros */}
       <section className="mx-auto w-full max-w-6xl px-5">
-        <div className="flex flex-col gap-4 border-y border-border py-4 md:flex-row md:items-center md:justify-between">
-          <label className="flex w-full items-center gap-3 md:max-w-xs">
+        <div className="flex flex-col gap-4 py-4 md:flex-row md:items-center md:justify-between">
+          <label className="flex w-full items-center gap-3 rounded-full border border-border bg-card px-4 py-3 shadow-sm md:max-w-sm">
             <Search className="size-4 shrink-0 text-muted-foreground" />
             <input
               value={busca}
@@ -130,7 +130,7 @@ function Home() {
                 type="button"
                 onClick={() => setBusca("")}
                 aria-label="Limpar busca"
-                className="shrink-0 text-muted-foreground transition-colors hover:text-foreground"
+                className="flex size-7 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors hover:text-foreground"
               >
                 <X className="size-4" />
               </button>
@@ -159,7 +159,7 @@ function Home() {
       <section className="mx-auto w-full max-w-6xl px-5 py-10">
         <div
           ref={mapaRef}
-          className="relative h-[520px] w-full overflow-hidden border border-border bg-muted"
+           className="relative h-[520px] w-full overflow-hidden rounded-3xl border border-border bg-muted shadow-editorial"
         >
           <ClientOnly
             fallback={
@@ -175,7 +175,7 @@ function Home() {
             />
           </ClientOnly>
 
-          <div className="pointer-events-none absolute right-4 top-4 z-[400] inline-flex items-center gap-2 bg-foreground px-3 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-background">
+           <div className="pointer-events-none absolute right-4 top-4 z-[400] inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.12em] text-background shadow-lift">
             <span className="relative flex size-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
               <span className="relative inline-flex size-1.5 rounded-full bg-primary" />
@@ -199,7 +199,7 @@ function Home() {
       {/* Vitrine */}
       <section className="mx-auto w-full max-w-6xl px-5 pb-24">
         <div className="flex items-end justify-between border-b border-border pb-4">
-          <h2 className="text-3xl md:text-4xl">Em destaque</h2>
+          <h2 className="text-3xl font-extrabold md:text-4xl">Em destaque</h2>
           <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
             Selecionados pela avaliação
           </span>
@@ -225,7 +225,7 @@ function Home() {
 
       <footer className="border-t border-border">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-5 py-10 sm:flex-row sm:items-center sm:justify-between">
-          <span className="font-display text-xl">Arthere</span>
+           <span className="font-display text-xl font-extrabold">Arthere</span>
           <p className="text-xs text-muted-foreground">
             Conectando agentes criativos e contratantes na Baixada Santista.
           </p>
@@ -249,7 +249,7 @@ function FiltroChip({
       type="button"
       onClick={onClick}
       className={cn(
-        "inline-flex items-center gap-1.5 border px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.14em] transition-colors",
+         "inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.1em] shadow-sm transition-all hover:-translate-y-0.5",
         ativo
           ? "border-foreground bg-foreground text-background"
           : "border-border text-muted-foreground hover:border-foreground hover:text-foreground",
