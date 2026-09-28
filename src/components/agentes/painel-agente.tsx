@@ -18,7 +18,7 @@ export function PainelAgente({
   const cat = categoriaInfo(agente.categoria);
 
   return (
-    <aside className="pointer-events-auto w-full max-w-sm border border-border bg-card shadow-editorial">
+    <aside className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-3xl border border-border bg-card shadow-editorial">
       <div className="flex items-start gap-4 p-5">
         {agente.avatar_url ? (
           <div className="relative shrink-0">
@@ -40,14 +40,14 @@ export function PainelAgente({
             <span className={cn("size-1.5 rounded-full", cat.dot)} />
             {cat.label}
           </span>
-          <h3 className="mt-1 truncate font-display text-2xl leading-tight">{agente.nome}</h3>
+          <h3 className="mt-1 truncate font-display text-2xl font-extrabold leading-tight">{agente.nome}</h3>
           <p className="truncate text-sm text-muted-foreground">{agente.especialidade}</p>
         </div>
         <button
           type="button"
           onClick={onClose}
           aria-label="Fechar"
-          className="text-muted-foreground transition-colors hover:text-foreground"
+          className="flex size-9 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors hover:text-foreground"
         >
           <X className="size-4" />
         </button>
@@ -96,13 +96,13 @@ export function PainelAgente({
       ) : null}
 
       <div className="flex flex-wrap gap-2 border-t border-border p-4">
-        <button className="flex-1 bg-foreground px-4 py-2.5 text-xs font-medium uppercase tracking-[0.16em] text-background transition-opacity hover:opacity-90">
+        <button className="flex-1 rounded-full bg-foreground px-4 py-2.5 text-xs font-bold uppercase tracking-[0.12em] text-background transition-transform hover:-translate-y-0.5">
           Ver perfil
         </button>
         <button
           type="button"
           onClick={() => onAgendar?.(agente)}
-          className="inline-flex items-center justify-center gap-2 border border-border px-3 py-2.5 text-xs font-medium uppercase tracking-[0.16em] transition-colors hover:bg-muted"
+          className="inline-flex items-center justify-center gap-2 rounded-full border border-border px-3 py-2.5 text-xs font-bold uppercase tracking-[0.1em] transition-colors hover:bg-muted"
         >
           <CalendarCheck className="size-3.5" />
           Agendar
@@ -110,7 +110,7 @@ export function PainelAgente({
         <button
           type="button"
           onClick={() => onConversar?.(agente)}
-          className="inline-flex items-center justify-center gap-2 border border-border px-3 py-2.5 text-xs font-medium uppercase tracking-[0.16em] transition-colors hover:bg-muted"
+          className="inline-flex items-center justify-center gap-2 rounded-full border border-border px-3 py-2.5 text-xs font-bold uppercase tracking-[0.1em] transition-colors hover:bg-muted"
         >
           <MessageCircle className="size-3.5" />
           Conversar

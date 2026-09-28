@@ -112,12 +112,12 @@ function EventosPage() {
         <section className="mx-auto w-full max-w-6xl px-5 pb-10 pt-14 md:pb-14 md:pt-20">
           <div className="grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-end">
             <div>
-              <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
+              <p className="inline-flex rounded-full bg-secondary/55 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-foreground">
                 Agenda cultural · Baixada Santista
               </p>
-              <h1 className="mt-5 text-5xl leading-none sm:text-6xl md:text-7xl">
+              <h1 className="mt-5 text-5xl font-extrabold leading-[1.02] sm:text-6xl md:text-7xl">
                 Encontros que fazem a
-                <span className="italic text-primary"> cena acontecer.</span>
+                <span className="text-primary"> cena acontecer.</span>
               </h1>
             </div>
             <p className="max-w-md text-base leading-relaxed text-muted-foreground md:justify-self-end">
@@ -127,9 +127,9 @@ function EventosPage() {
           </div>
         </section>
 
-        <section className="border-y border-border">
+        <section>
           <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-5 py-4 lg:flex-row lg:items-center lg:justify-between">
-            <label className="flex w-full items-center gap-3 lg:max-w-sm">
+            <label className="flex w-full items-center gap-3 rounded-full border border-border bg-card px-4 py-3 shadow-sm lg:max-w-sm">
               <Search className="size-4 shrink-0 text-muted-foreground" />
               <input
                 value={busca}
@@ -158,7 +158,7 @@ function EventosPage() {
                   variant={categoria === item ? "default" : "outline"}
                   size="sm"
                   onClick={() => setCategoria(item)}
-                  className="shrink-0 rounded-none uppercase tracking-[0.14em]"
+                   className="shrink-0 rounded-full px-4 uppercase tracking-[0.1em]"
                 >
                   {item}
                 </Button>
@@ -172,13 +172,13 @@ function EventosPage() {
             <div className="flex items-center justify-between border-b border-border pb-4">
               <div>
                 <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Calendário</p>
-                <h2 className="mt-1 text-3xl capitalize">{format(mes, "MMMM yyyy", { locale: ptBR })}</h2>
+                 <h2 className="mt-1 text-3xl font-extrabold capitalize">{format(mes, "MMMM yyyy", { locale: ptBR })}</h2>
               </div>
               <div className="flex gap-1">
-                <Button variant="ghost" size="icon" onClick={() => trocarMes(-1)} aria-label="Mês anterior">
+                 <Button className="rounded-full" variant="outline" size="icon" onClick={() => trocarMes(-1)} aria-label="Mês anterior">
                   <ChevronLeft />
                 </Button>
-                <Button variant="ghost" size="icon" onClick={() => trocarMes(1)} aria-label="Próximo mês">
+                 <Button className="rounded-full" variant="outline" size="icon" onClick={() => trocarMes(1)} aria-label="Próximo mês">
                   <ChevronRight />
                 </Button>
               </div>
@@ -221,7 +221,7 @@ function EventosPage() {
             <div className="flex items-end justify-between border-b border-border pb-4">
               <div>
                 <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Próximos</p>
-                <h2 className="mt-1 text-3xl">Agenda do mês</h2>
+                 <h2 className="mt-1 text-3xl font-extrabold">Agenda do mês</h2>
               </div>
               <span className="text-xs text-muted-foreground">{eventosDoMes.length} eventos</span>
             </div>
@@ -234,12 +234,12 @@ function EventosPage() {
                     type="button"
                     onClick={() => setSelecionado(evento)}
                     className={cn(
-                      "group grid w-full grid-cols-[3.5rem_1fr_auto] items-center gap-4 py-5 text-left transition-colors",
-                      selecionado?.id === evento.id && "text-primary",
+                       "group my-2 grid w-full grid-cols-[3.5rem_1fr_auto] items-center gap-4 rounded-2xl px-3 py-4 text-left transition-all hover:bg-card hover:shadow-sm",
+                       selecionado?.id === evento.id && "bg-primary/10 text-primary",
                     )}
                   >
                     <span className="border-r border-border pr-4 text-center">
-                      <span className="block font-display text-3xl leading-none">
+                       <span className="block font-display text-3xl font-extrabold leading-none">
                         {format(new Date(evento.inicio), "dd")}
                       </span>
                       <span className="mt-1 block text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
@@ -268,13 +268,13 @@ function EventosPage() {
         </section>
 
         {selecionado ? (
-          <section className="bg-foreground text-background">
-            <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-12 md:grid-cols-[0.8fr_1.2fr] md:py-16">
+          <section className="mx-5 mb-10 overflow-hidden rounded-3xl bg-foreground text-background md:mx-auto md:max-w-6xl">
+            <div className="mx-auto grid w-full gap-10 px-6 py-12 md:grid-cols-[0.8fr_1.2fr] md:px-10 md:py-16">
               <div>
                 <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-background/60">
                   {selecionado.categoria}
                 </span>
-                <p className="mt-5 font-display text-7xl leading-none text-primary">
+                 <p className="mt-5 font-display text-7xl font-extrabold leading-none text-primary">
                   {format(new Date(selecionado.inicio), "dd")}
                 </p>
                 <p className="mt-2 text-sm capitalize text-background/70">
@@ -282,7 +282,7 @@ function EventosPage() {
                 </p>
               </div>
               <div>
-                <h2 className="text-4xl leading-tight sm:text-5xl">{selecionado.titulo}</h2>
+                 <h2 className="text-4xl font-extrabold leading-tight sm:text-5xl">{selecionado.titulo}</h2>
                 <p className="mt-5 max-w-2xl leading-relaxed text-background/70">
                   {selecionado.descricao}
                 </p>
@@ -297,7 +297,7 @@ function EventosPage() {
                   </p>
                   <Button
                     onClick={() => toast.success("Interesse registrado. Avisaremos sobre novidades deste evento.")}
-                    className="rounded-none"
+                     className="rounded-full px-6"
                   >
                     Tenho interesse <ArrowRight />
                   </Button>
